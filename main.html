@@ -44,6 +44,7 @@
     <h1>App Link</h1>
     <input type="text" id="search" placeholder="Search apps..." onkeyup="filterApps()">
     <div id="appContainer" class="app-container">
+        <!-- App Buttons here -->
         <input type="image" class="button facebook" draggable="true" ondragstart="drag(event)" onclick="openApp('fb://')" src="Iconimage/facebook.png" width="100" height="100" alt="facebook">
         <input type="image" class="button outlook" draggable="true" ondragstart="drag(event)" onclick="openApp('ms-outlook://')" src="Iconimage/outlook.png" width="100" height="100" alt="outlook">
         <input type="image" class="button instagram" draggable="true" ondragstart="drag(event)" onclick="openApp('instagram://')" src="Iconimage/instagram.png" width="100" height="100" alt="instagram">
@@ -56,54 +57,9 @@
         <input type="image" class="button gmail" draggable="true" ondragstart="drag(event)" onclick="openApp('gmail://')" src="Iconimage/gmail.png" width="100" height="100" alt="gmail">
         <input type="image" class="button googledrive" draggable="true" ondragstart="drag(event)" onclick="openApp('googledrive://')" src="Iconimage/googledrive.png" width="100" height="100" alt="googledrive">
         <input type="image" class="button poe" draggable="true" ondragstart="drag(event)" onclick="openApp('poe://')" src="Iconimage/poe.png" width="100" height="100" alt="poe">
-
     </div>
 
-    <script>
-        let dragged;
-
-        function openApp(urlScheme) {
-            window.location.href = urlScheme;
-        }
-
-        function adjustLayout() {
-            if (window.innerWidth < 600) {
-                document.body.style.backgroundColor = "#f0f0f0";
-            } else {
-                document.body.style.backgroundColor = "#ffffff";
-            }
-        }
-
-        function filterApps() {
-            const query = document.getElementById('search').value.toLowerCase();
-            const buttons = document.querySelectorAll('.button');
-            buttons.forEach(button => {
-                const altText = button.getAttribute('alt').toLowerCase();
-                if (altText.includes(query)) {
-                    button.style.display = 'inline-block';
-                } else {
-                    button.style.display = 'none';
-                }
-            });
-        }
-
-        function drag(event) {
-            dragged = event.target;
-        }
-
-        document.getElementById('appContainer').addEventListener('dragover', function(event) {
-            event.preventDefault();
-        });
-
-        document.getElementById('appContainer').addEventListener('drop', function(event) {
-            event.preventDefault();
-            if (event.target.className.includes('button')) {
-                event.target.parentNode.insertBefore(dragged, event.target.nextSibling);
-            }
-        });
-
-        window.onload = adjustLayout;
-        window.onresize = adjustLayout;
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
+        
