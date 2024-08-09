@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Apps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+            user-select: none;
+        }
+        .instagram { background-color: #e1306c; }
+        .facebook { background-color: #3b5998; }
+        .outlook { background-color: #0078d4; }
+        .csl { background-color: #d46c17; }
+        .surfshark { background-color: #1faa93; }
+        .chrome { background-color: #6a9604; }
+        .whatsapp { background-color: #43b434; }
+        .signal { background-color: #346bb4; }
+        .discord { background-color: #15399b; }
+        .gmail { background-color: #baca2c; }
+        .googledrive { background-color: #1d85b6; }
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>App Link</h1>
+    <input type="text" id="search" placeholder="Search apps..." onkeyup="filterApps()">
+    <div id="appContainer" class="app-container">
+        <input type="image" class="button facebook" draggable="true" ondragstart="drag(event)" onclick="openApp('fb://')" src="Iconimage/facebook.png" width="100" height="100" alt="facebook">
+        <input type="image" class="button outlook" draggable="true" ondragstart="drag(event)" onclick="openApp('ms-outlook://')" src="Iconimage/outlook.png" width="100" height="100" alt="outlook">
+        <input type="image" class="button instagram" draggable="true" ondragstart="drag(event)" onclick="openApp('instagram://')" src="Iconimage/instagram.png" width="100" height="100" alt="instagram">
+        <input type="image" class="button csl" draggable="true" ondragstart="drag(event)" onclick="openApp('csl://')" src="Iconimage/csl.png" width="100" height="100" alt="csl">
+        <input type="image" class="button surfshark" draggable="true" ondragstart="drag(event)" onclick="openApp('surfshark://')" src="Iconimage/surfshark.png" width="100" height="100" alt="surfshark">
+        <input type="image" class="button chrome" draggable="true" ondragstart="drag(event)" onclick="openApp('chrome://')" src="Iconimage/chrome.png" width="100" height="100" alt="chrome">
+        <input type="image" class="button whatsapp" draggable="true" ondragstart="drag(event)" onclick="openApp('whatsapp://')" src="Iconimage/whatsapp.png" width="100" height="100" alt="whatsapp">
+        <input type="image" class="button signal" draggable="true" ondragstart="drag(event)" onclick="openApp('signal://')" src="Iconimage/signal.png" width="100" height="100" alt="signal">
+        <input type="image" class="button discord" draggable="true" ondragstart="drag(event)" onclick="openApp('discord://')" src="Iconimage/discord.png" width="100" height="100" alt="discord">
+        <input type="image" class="button gmail" draggable="true" ondragstart="drag(event)" onclick="openApp('gmail://')" src="Iconimage/gmail.png" width="100" height="100" alt="gmail">
+        <input type="image" class="button googledrive" draggable="true" ondragstart="drag(event)" onclick="openApp('googledrive://')" src="Iconimage/googledrive.png" width="100" height="100" alt="googledrive">
+    </div>
+
+    <script>
+        let dragged;
+
+        function openApp(urlScheme) {
+            window.location.href = urlScheme;
+        }
+
+        function adjustLayout() {
+            if (window.innerWidth < 600) {
+                document.body.style.backgroundColor = "#f0f0f0";
+            } else {
+                document.body.style.backgroundColor = "#ffffff";
+            }
+        }
+
+        function filterApps() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                const altText = button.getAttribute('alt').toLowerCase();
+                if (altText.includes(query)) {
+                    button.style.display = 'inline-block';
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+        }
+
+        function drag(event) {
+            dragged = event.target;
+        }
+
+        document.getElementById('appContainer').addEventListener('dragover', function(event) {
+            event.preventDefault();
+        });
+
+        document.getElementById('appContainer').addEventListener('drop', function(event) {
+            event.preventDefault();
+            if (event.target.className.includes('button')) {
+                event.target.parentNode.insertBefore(dragged, event.target.nextSibling);
+            }
+        });
+
+        window.onload = adjustLayout;
+        window.onresize = adjustLayout;
+    </script>
+</body>
+</html>
